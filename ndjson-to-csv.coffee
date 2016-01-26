@@ -6,7 +6,7 @@ csv = require 'csv-write-stream'
 
 fs.unlinkSync './unique.csv'
 
-columns = ['user', 'a', 'b', 'c']
+columns = ['user', 'teams', 'teamwork', 'links', 'gantt', 'multiaction']
 fs.createReadStream './unique.ndjson'
 	.pipe ndjson.parse()
 	.pipe csv {headers: columns}

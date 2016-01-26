@@ -1,8 +1,8 @@
 express = require 'express'
 bodyParser = require 'body-parser'
+cors = require 'cors'
 fs = require 'fs'
 ndjson = require 'ndjson'
-_ = require 'lodash'
 auth = require 'basic-auth'
 
 
@@ -13,11 +13,9 @@ file = fs.createWriteStream './db.ndjson'
 db = ndjson.stringify()
 db.pipe file
 
-whitelistedKeys = ['a', 'b', 'c', 'user']
-
+app.use '/counters', cors()
 app.post '/counters', (req, res) ->
-	feedback = _.pick req.body, whitelistedKeys
-	if feedback.user? then db.write feedback
+	if feedback.user? then db.write req.body
 	res.send 'OK'
 
 app.get "/feedbacks", (req, res) ->

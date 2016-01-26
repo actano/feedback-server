@@ -15,12 +15,12 @@ db.pipe file
 
 app.use '/counters', cors()
 app.post '/counters', (req, res) ->
-	if feedback.user? then db.write req.body
+	if req.body.user? then db.write req.body
 	res.send 'OK'
 
 app.get "/feedbacks", (req, res) ->
     objUser = auth req
-    if objUser and objUser.name is "Jimmy" and objUser.pass is "admin"
+    if objUser and objUser.name is "actano" and objUser.pass is "actano"
         res.sendFile './unique.csv', root: __dirname
     else
         res.set "WWW-Authenticate", "Basic realm=Authorization Required"
